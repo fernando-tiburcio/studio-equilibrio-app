@@ -16,11 +16,9 @@ export const AppNavigator = () => {
       <View
         style={{
           paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
+          // paddingBottom: insets.bottom,
           flex: 1,
-          backgroundColor: "#fff",
+          backgroundColor: "#ffffff",
         }}
       >
         {isAuthenticated ? <PrivateRoutes /> : <PublicRoutes />}
