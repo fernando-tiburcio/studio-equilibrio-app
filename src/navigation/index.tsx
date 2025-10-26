@@ -4,11 +4,10 @@ import { PublicRoutes } from "./publicRoutes";
 import { PrivateRoutes } from "./privateRoutes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
+import { useAuth } from "../contexts/AuthContext";
 
 export const AppNavigator = () => {
-  // Por enquanto, vamos usar as rotas privadas diretamente
-  // Em uma implementação real, você verificaria se o usuário está autenticado
-  const isAuthenticated = true; // Simular usuário autenticado
+  const { isAuthenticated } = useAuth();
   const insets = useSafeAreaInsets();
 
   return (
