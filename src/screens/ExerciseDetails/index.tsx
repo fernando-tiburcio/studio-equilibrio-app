@@ -12,7 +12,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
-import { useWorkout } from "../../contexts/WorkoutContext";
+import { useWorkout } from "../../hooks/useWorkout";
 import { ExerciseDetail } from "../SubdivisionDetails";
 
 interface ExerciseDetailsProps {

@@ -3,8 +3,9 @@ import { StatusBar } from "expo-status-bar";
 import { AppNavigator } from "./navigation";
 import { PaperProvider } from "react-native-paper";
 import { theme } from "./theme";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import { WorkoutProvider } from "./contexts/WorkoutContext";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { useAuth } from "./hooks/useAuth";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 
 if (__DEV__) {
@@ -29,11 +30,9 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <PaperProvider theme={theme}>
-        <AuthProvider>
-          <WorkoutProvider>
-            <AppContent />
-          </WorkoutProvider>
-        </AuthProvider>
+        <Provider store={store}>
+          <AppContent />
+        </Provider>
       </PaperProvider>
       <StatusBar style="auto" />
     </View>

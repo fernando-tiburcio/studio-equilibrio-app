@@ -11,7 +11,7 @@ import { TextInput, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { PublicStackParamList } from "../../navigation/publicRoutes";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<
   PublicStackParamList,

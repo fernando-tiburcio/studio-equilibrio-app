@@ -4,7 +4,7 @@ import { PublicRoutes } from "./publicRoutes";
 import { PrivateRoutes } from "./privateRoutes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export const AppNavigator = () => {
   const { isAuthenticated } = useAuth();

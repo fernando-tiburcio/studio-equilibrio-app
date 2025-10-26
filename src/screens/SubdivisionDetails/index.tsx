@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useWorkout } from "../../contexts/WorkoutContext";
+import { useWorkout } from "../../hooks/useWorkout";
 
 export interface ExerciseDetail {
   id: string;
