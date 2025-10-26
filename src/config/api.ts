@@ -8,6 +8,7 @@ export const API_CONFIG = {
   ENDPOINTS: {
     LOGIN: "/auth/login",
     FORGOT_PASSWORD: "/auth/forgot-password",
+    ACTIVE_WORKOUT: "/workouts/user",
   },
   TIMEOUT: 30000, // 30 segundos
 };

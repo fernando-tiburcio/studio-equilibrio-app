@@ -1,12 +1,32 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../screens/Home";
 import { ProfileScreen } from "../screens/Profile";
 import { WorkoutsScreen } from "../screens/Workouts";
+import { SubdivisionDetailsScreen } from "../screens/SubdivisionDetails";
+import { ExerciseDetailsScreen } from "../screens/ExerciseDetails";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
+const WorkoutsStack = createNativeStackNavigator();
+
+const WorkoutsStackNavigator = () => {
+  return (
+    <WorkoutsStack.Navigator screenOptions={{ headerShown: false }}>
+      <WorkoutsStack.Screen name="WorkoutsList" component={WorkoutsScreen} />
+      <WorkoutsStack.Screen
+        name="SubdivisionDetails"
+        component={SubdivisionDetailsScreen}
+      />
+      <WorkoutsStack.Screen
+        name="ExerciseDetails"
+        component={ExerciseDetailsScreen}
+      />
+    </WorkoutsStack.Navigator>
+  );
+};
 
 export const PrivateRoutes = () => {
   const insets = useSafeAreaInsets();
@@ -20,7 +40,7 @@ export const PrivateRoutes = () => {
           paddingTop: 5,
           height: 60 + insets.bottom,
         },
-        tabBarActiveTintColor: "#007AFF",
+        tabBarActiveTintColor: "#10b981",
         tabBarInactiveTintColor: "#8E8E93",
         tabBarLabelStyle: {
           fontSize: 12,
@@ -40,7 +60,7 @@ export const PrivateRoutes = () => {
       />
       <Tab.Screen
         name="Workouts"
-        component={WorkoutsScreen}
+        component={WorkoutsStackNavigator}
         options={{
           tabBarLabel: "Treinos",
           tabBarIcon: ({ color, size }) => (

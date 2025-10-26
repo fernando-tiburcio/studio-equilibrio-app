@@ -4,7 +4,12 @@ import { AppNavigator } from "./navigation";
 import { PaperProvider } from "react-native-paper";
 import { theme } from "./theme";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { WorkoutProvider } from "./contexts/WorkoutContext";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
+
+if (__DEV__) {
+  require("../ReactotronConfig.ts");
+}
 
 function AppContent() {
   const { loading } = useAuth();
@@ -25,7 +30,9 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <PaperProvider theme={theme}>
         <AuthProvider>
-          <AppContent />
+          <WorkoutProvider>
+            <AppContent />
+          </WorkoutProvider>
         </AuthProvider>
       </PaperProvider>
       <StatusBar style="auto" />

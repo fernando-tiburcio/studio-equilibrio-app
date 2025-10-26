@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_CONFIG } from "../config/api";
 
 const API_URL = API_CONFIG.BASE_URL;
@@ -35,6 +36,73 @@ export interface AuthResponse {
 export interface ApiError {
   message: string;
   errors?: Record<string, string[]>;
+}
+
+export interface Equipment {
+  id: string;
+  name: string;
+}
+
+export interface WorkoutDetail {
+  id: string;
+  repetitions: number;
+  series: number;
+  description: string;
+  details: string;
+  rest: number;
+  workoutSubdivision: number;
+  exercise: Exercise;
+}
+
+export interface WorkoutUser {
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface WorkoutRootObject {
+  success: boolean;
+  data: ActiveWorkout;
+}
+
+export interface ActiveWorkout {
+  id: string;
+  name: string;
+  subdivisions: number;
+  created_at: string;
+  organizedSubdivisions: OrganizedSubdivision[];
+}
+
+interface OrganizedSubdivision {
+  subdivision: number;
+  muscleGroups: MuscleGroup2[];
+}
+
+interface MuscleGroup2 {
+  name: string;
+  exercises: Exercise2[];
+}
+
+interface Exercise2 {
+  id: string;
+  repetitions: number;
+  series: number;
+  description: string;
+  details: string;
+  rest: number;
+  exercise: Exercise;
+}
+
+interface Exercise {
+  id: string;
+  name: string;
+  muscleGroup: MuscleGroup;
+  equipment: MuscleGroup;
+}
+
+interface MuscleGroup {
+  id: string;
+  name: string;
 }
 
 class ApiService {
@@ -92,6 +160,41 @@ class ApiService {
           data.message || "Erro ao solicitar recuperação de senha"
         );
       }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error("Erro de conexão com o servidor");
+    }
+  }
+
+  async getActiveWorkout(): Promise<ActiveWorkout> {
+    try {
+      const token = await AsyncStorage.getItem("@auth:token");
+      console.log("token", token);
+
+      const user = JSON.parse(
+        (await AsyncStorage.getItem("@auth:user")) || "{}"
+      );
+
+      const response = await fetch(
+        `${this.baseUrl}${API_CONFIG.ENDPOINTS.ACTIVE_WORKOUT}/${user.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const { data } = await response.json();
+      console.log("data", data);
+      if (!response.ok) {
+        throw new Error(data.message || "Erro ao buscar treino ativo");
+      }
+
+      return data;
     } catch (error) {
       if (error instanceof Error) {
         throw error;
